@@ -3,7 +3,7 @@
 let pendingCapture = null;
 
 chrome.action.onClicked.addListener(async (tab) => {
-  await injectAndStart(tab.id, "rectangle");
+  await injectAndStart(tab.id, "component");
 });
 
 chrome.commands.onCommand.addListener(async (command) => {

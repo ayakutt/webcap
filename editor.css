@@ -71,13 +71,13 @@ body {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  border: 2px solid transparent;
+  border: none;
   cursor: pointer;
-  transition: border-color 0.15s, transform 0.15s;
-  outline: none;
+  transition: transform 0.15s, outline-color 0.15s;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   padding: 0;
   flex-shrink: 0;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
 .swatch:hover {
@@ -85,7 +85,7 @@ body {
 }
 
 .swatch.active {
-  border-color: #fff;
+  outline-color: #fff;
 }
 
 .swatch.checkerboard {
@@ -99,22 +99,26 @@ body {
   background-position: 0 0, 0 4px, 4px -4px, -4px 0;
 }
 
-.swatch.solid-white {
-  border-color: rgba(255, 255, 255, 0.2);
+.swatch.solid-white,
+.swatch.needs-ring {
+  outline-color: rgba(255, 255, 255, 0.2);
 }
 
 .swatch.solid-white.active {
-  border-color: #5b9dff;
+  outline-color: #5b9dff;
 }
 
 .color-picker {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.15);
+  border: none;
   cursor: pointer;
   padding: 0;
   background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  transition: transform 0.15s, outline-color 0.15s;
   -webkit-appearance: none;
   appearance: none;
   outline: none;

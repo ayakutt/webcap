@@ -115,9 +115,10 @@
   // ─── Component Mode ──────────────────────────────────────────
 
   function startComponentMode() {
+    document.body.classList.add("webcap-component-mode");
     hint = document.createElement("div");
     hint.id = "webcap-hint";
-    hint.textContent = "Hover to detect · Scroll to traverse · Click to capture · Tab for rectangle mode · Esc to cancel";
+    hint.textContent = "Hover to detect · Scroll/↑↓ to traverse · Click to capture · Tab for rectangle mode · Esc to cancel";
     document.body.appendChild(hint);
 
     highlightEl = document.createElement("div");
@@ -157,15 +158,25 @@
     return chain;
   }
 
+  function traverseUp() {
+    if (!ancestors.length) return;
+    ancestorIndex = Math.min(ancestorIndex + 1, ancestors.length - 1);
+  }
+
+  function traverseDown() {
+    if (!ancestors.length) return;
+    ancestorIndex = Math.max(ancestorIndex - 1, 0);
+  }
+
   function onComponentWheel(e) {
     if (!ancestors.length) return;
     e.preventDefault();
     e.stopPropagation();
 
     if (e.deltaY < 0) {
-      ancestorIndex = Math.min(ancestorIndex + 1, ancestors.length - 1);
+      traverseUp();
     } else {
-      ancestorIndex = Math.max(ancestorIndex - 1, 0);
+      traverseDown();
     }
     updateHighlight(ancestors[ancestorIndex], e.clientX, e.clientY);
   }
@@ -276,6 +287,19 @@
       e.stopPropagation();
       switchMode();
     }
+    if (mode === "component" && (e.key === "ArrowUp" || e.key === "ArrowDown")) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (e.key === "ArrowUp") {
+        traverseUp();
+      } else {
+        traverseDown();
+      }
+      if (ancestors[ancestorIndex]) {
+        const rect = ancestors[ancestorIndex].getBoundingClientRect();
+        updateHighlight(ancestors[ancestorIndex], rect.left + rect.width / 2, rect.top + rect.height / 2);
+      }
+    }
   }
 
   function switchMode() {
@@ -292,6 +316,7 @@
     document.removeEventListener("click", onComponentClick, true);
     document.removeEventListener("keydown", onKeyDown);
     window.removeEventListener("scroll", onPageScroll, true);
+    document.body.classList.remove("webcap-component-mode");
     isDragging = false;
     currentTarget = null;
     ancestors = [];
@@ -326,7 +351,7 @@
     document.removeEventListener("click", onComponentClick, true);
     document.removeEventListener("keydown", onKeyDown);
     window.removeEventListener("scroll", onPageScroll, true);
-    document.body.classList.remove("webcap-active");
+    document.body.classList.remove("webcap-active", "webcap-component-mode");
     isDragging = false;
     currentTarget = null;
     ancestors = [];

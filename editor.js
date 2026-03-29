@@ -67,6 +67,7 @@
     } else if (bg.type === "solid") {
       swatch.style.background = bg.color;
       if (bg.color === "#ffffff") swatch.classList.add("solid-white");
+      if (bg.color === "#1e1e1e" || bg.color === "#000000") swatch.classList.add("needs-ring");
     } else {
       swatch.style.background = `linear-gradient(135deg, ${bg.stops.map((s) => s[1]).join(", ")})`;
     }
