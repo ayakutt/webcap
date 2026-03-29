@@ -1,5 +1,7 @@
 // webcap background service worker
 
+let pendingCapture = null;
+
 chrome.action.onClicked.addListener(async (tab) => {
   await injectAndStart(tab.id, "rectangle");
 });
@@ -34,15 +36,16 @@ async function injectAndStart(tabId, mode) {
 }
 
 // Listen for capture requests from content script
-chrome.runtime.onMessage.addListener((msg, sender) => {
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.action === "capture-rect" && sender.tab) {
     captureAndCrop(sender.tab.id, msg.rect, {
       shadow: msg.shadow,
       borderRadius: msg.borderRadius || 0,
     });
   }
-  if (msg.action === "open-dataurl") {
-    chrome.tabs.create({ url: msg.dataUrl });
+  if (msg.action === "get-capture") {
+    sendResponse({ dataUrl: pendingCapture });
+    pendingCapture = null;
   }
 });
 
@@ -111,7 +114,8 @@ async function captureAndCrop(tabId, rect, options = {}) {
     const base64 = arrayBufferToBase64(arrayBuffer);
     const croppedDataUrl = "data:image/png;base64," + base64;
 
-    chrome.tabs.create({ url: croppedDataUrl });
+    pendingCapture = croppedDataUrl;
+    chrome.tabs.create({ url: chrome.runtime.getURL("editor.html") });
     chrome.tabs.sendMessage(tabId, { action: "capture-complete" });
   } catch (err) {
     console.error("webcap: capture failed", err);
