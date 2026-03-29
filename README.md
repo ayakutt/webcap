@@ -12,10 +12,7 @@ A Chrome extension for capturing screenshots of web page regions or individual c
 ## Screenshots
 
 ### Component Mode
-![Component mode capture](screenshots/component-mode.png)
-
-### Rectangle Mode
-![Rectangle mode capture](screenshots/rectangle-mode.png)
+![Component mode capture](screenshots/component-mode.jpg)
 
 ### Editor
 ![Editor with gradient background](screenshots/editor.png)
