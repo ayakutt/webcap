@@ -1,0 +1,109 @@
+/* webcap overlay and selection styles */
+
+#webcap-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2147483647;
+  cursor: crosshair;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+#webcap-selection {
+  position: fixed;
+  border: 2px dashed #fff;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.3);
+  z-index: 2147483647;
+  pointer-events: none;
+}
+
+/* When selection is active, overlay becomes transparent so the
+   box-shadow on the selection provides the dimming effect */
+#webcap-overlay.has-selection {
+  background: transparent;
+}
+
+#webcap-hint {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2147483647;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font: 13px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* ─── Component Mode ─────────────────────────────── */
+
+#webcap-component-highlight {
+  position: fixed;
+  border: 2px solid #4A90D9;
+  background: rgba(74, 144, 217, 0.1);
+  z-index: 2147483646;
+  pointer-events: none;
+  transition: top 0.05s, left 0.05s, width 0.05s, height 0.05s;
+  border-radius: 2px;
+}
+
+#webcap-component-tooltip {
+  position: fixed;
+  z-index: 2147483647;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font: 11px/1.3 "SF Mono", Monaco, "Cascadia Code", monospace;
+  pointer-events: none;
+  white-space: nowrap;
+  max-width: 400px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#webcap-component-tooltip .tag {
+  color: #7cacf8;
+}
+
+#webcap-component-tooltip .class {
+  color: #98c379;
+}
+
+#webcap-component-tooltip .id {
+  color: #e5c07b;
+}
+
+#webcap-component-tooltip .size {
+  color: #888;
+  margin-left: 6px;
+}
+
+#webcap-flash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2147483647;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+  animation: webcap-flash 0.2s ease-out;
+}
+
+@keyframes webcap-flash {
+  0% { opacity: 0.5; }
+  100% { opacity: 0; }
+}
+
+body.webcap-active {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
