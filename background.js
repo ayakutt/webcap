@@ -36,14 +36,17 @@ async function injectAndStart(tabId, mode) {
 // Listen for capture requests from content script
 chrome.runtime.onMessage.addListener((msg, sender) => {
   if (msg.action === "capture-rect" && sender.tab) {
-    captureAndCrop(sender.tab.id, msg.rect);
+    captureAndCrop(sender.tab.id, msg.rect, {
+      shadow: msg.shadow,
+      borderRadius: msg.borderRadius || 0,
+    });
   }
   if (msg.action === "open-dataurl") {
     chrome.tabs.create({ url: msg.dataUrl });
   }
 });
 
-async function captureAndCrop(tabId, rect) {
+async function captureAndCrop(tabId, rect, options = {}) {
   try {
     const dataUrl = await chrome.tabs.captureVisibleTab(null, {
       format: "png",
@@ -64,17 +67,51 @@ async function captureAndCrop(tabId, rect) {
       return;
     }
 
-    const canvas = new OffscreenCanvas(cropW, cropH);
-    const ctx = canvas.getContext("2d");
-    ctx.drawImage(bitmap, cropX, cropY, cropW, cropH, 0, 0, cropW, cropH);
+    // Crop the element from the screenshot
+    const cropCanvas = new OffscreenCanvas(cropW, cropH);
+    const cropCtx = cropCanvas.getContext("2d");
+    cropCtx.drawImage(bitmap, cropX, cropY, cropW, cropH, 0, 0, cropW, cropH);
 
-    const croppedBlob = await canvas.convertToBlob({ type: "image/png" });
-    const arrayBuffer = await croppedBlob.arrayBuffer();
+    let finalCanvas;
+
+    if (options.shadow) {
+      // macOS-style shadow: pad the image and draw a drop shadow behind it
+      const pad = 80;
+      const radius = options.borderRadius;
+      finalCanvas = new OffscreenCanvas(cropW + pad * 2, cropH + pad * 2);
+      const ctx = finalCanvas.getContext("2d");
+
+      // Draw a shape with shadow (the shadow extends into the padding)
+      ctx.shadowColor = "rgba(0, 0, 0, 0.35)";
+      ctx.shadowBlur = 50;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 12;
+      ctx.fillStyle = "#000";
+      ctx.beginPath();
+      ctx.roundRect(pad, pad, cropW, cropH, radius);
+      ctx.fill();
+
+      // Reset shadow
+      ctx.shadowColor = "transparent";
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+
+      // Clip to rounded rect and draw the cropped image
+      ctx.beginPath();
+      ctx.roundRect(pad, pad, cropW, cropH, radius);
+      ctx.clip();
+      ctx.drawImage(cropCanvas, 0, 0, cropW, cropH, pad, pad, cropW, cropH);
+    } else {
+      finalCanvas = cropCanvas;
+    }
+
+    const finalBlob = await finalCanvas.convertToBlob({ type: "image/png" });
+    const arrayBuffer = await finalBlob.arrayBuffer();
     const base64 = arrayBufferToBase64(arrayBuffer);
     const croppedDataUrl = "data:image/png;base64," + base64;
 
     chrome.tabs.create({ url: croppedDataUrl });
-    // Notify content script that capture is done so it can show the flash
     chrome.tabs.sendMessage(tabId, { action: "capture-complete" });
   } catch (err) {
     console.error("webcap: capture failed", err);

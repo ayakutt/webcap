@@ -238,11 +238,12 @@
   }
 
   function captureComponent(el) {
-    // Get element's bounding rect before removing UI
+    // Get element's bounding rect and border-radius before removing UI
     const rect = el.getBoundingClientRect();
+    const computedStyle = getComputedStyle(el);
+    const borderRadius = parseFloat(computedStyle.borderRadius) || 0;
 
     // Remove all webcap UI, wait for repaint, then use captureVisibleTab
-    // (same pixel-perfect pipeline as rectangle mode)
     cleanup();
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -254,6 +255,8 @@
             width: Math.round(rect.width * window.devicePixelRatio),
             height: Math.round(rect.height * window.devicePixelRatio),
           },
+          shadow: true,
+          borderRadius: Math.round(borderRadius * window.devicePixelRatio),
         });
       });
     });
