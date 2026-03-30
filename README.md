@@ -34,7 +34,7 @@ Coming soon.
 
 | Shortcut | Action |
 |---|---|
-| `Cmd+Shift+A` / `Ctrl+Shift+A` | Component capture |
+| `Cmd+Shift+E` / `Ctrl+Shift+E` | Component capture |
 | `Cmd+Shift+S` / `Ctrl+Shift+S` | Rectangle capture |
 | `Tab` | Switch between modes |
 | `Arrow Up/Down` | Traverse DOM tree (component mode) |

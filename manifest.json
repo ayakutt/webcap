@@ -30,8 +30,8 @@
     },
     "capture-component": {
       "suggested_key": {
-        "default": "Ctrl+Shift+A",
-        "mac": "Command+Shift+A"
+        "default": "Ctrl+Shift+E",
+        "mac": "Command+Shift+E"
       },
       "description": "Capture screenshot (component mode)"
     }

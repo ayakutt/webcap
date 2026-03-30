@@ -53,7 +53,7 @@ This is a Manifest V3 Chrome extension with no build step, no frameworks, no dep
 
 ### Keyboard Shortcuts
 
-- `Cmd+Shift+A` / `Ctrl+Shift+A` - Component capture (also the default click action).
+- `Cmd+Shift+E` / `Ctrl+Shift+E` - Component capture (also the default click action).
 - `Cmd+Shift+S` / `Ctrl+Shift+S` - Rectangle capture.
 - `Tab` - Switch between modes.
 - `Arrow Up/Down` - Traverse DOM tree in component mode.
