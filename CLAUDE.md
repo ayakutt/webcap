@@ -1,4 +1,4 @@
-# webcap
+# Webcap
 
 Chrome extension for capturing screenshots of web page regions or individual components.
 

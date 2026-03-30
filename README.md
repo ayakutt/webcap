@@ -1,4 +1,4 @@
-# webcap
+# Webcap
 
 A Chrome extension for capturing screenshots of web page regions or individual components, with a built-in editor for adding backgrounds before saving.
 
@@ -43,7 +43,7 @@ Coming soon.
 
 ## Privacy
 
-webcap runs entirely in your browser. It does not collect any data, make any network requests, or require any account.
+Webcap runs entirely in your browser. It does not collect any data, make any network requests, or require any account.
 
 ## License
 
