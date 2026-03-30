@@ -12,7 +12,7 @@ body {
   justify-content: center;
   min-height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  padding: 40px 40px 100px;
+  padding: 40px 40px 120px;
   overflow: auto;
 }
 
@@ -24,7 +24,7 @@ body {
 
 #canvas {
   max-width: 90vw;
-  max-height: calc(100vh - 140px);
+  max-height: calc(100vh - 160px);
   border-radius: 4px;
   background-color: #3a3a3a;
   background-image:
@@ -35,6 +35,8 @@ body {
   background-size: 20px 20px;
   background-position: 0 0, 0 10px, 10px -10px, -10px 0;
 }
+
+/* ─── Toolbar ─────────────────────────────────────── */
 
 .toolbar {
   position: fixed;
@@ -47,11 +49,102 @@ body {
   border-radius: 16px;
   padding: 10px 16px;
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
+  gap: 10px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
+
+.toolbar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ─── Effect Controls ─────────────────────────────── */
+
+.control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: default;
+}
+
+.control-label {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.control-value {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 11px;
+  min-width: 20px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 80px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Toggle switch */
+
+.toggle-input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 34px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+  outline: none;
+  flex-shrink: 0;
+}
+
+.toggle-input:checked {
+  background: #3B82F6;
+}
+
+.toggle-input::before {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-input:checked::before {
+  transform: translateX(14px);
+}
+
+/* ─── Background Swatches ─────────────────────────── */
 
 .bg-options {
   display: flex;
@@ -116,9 +209,6 @@ body {
   cursor: pointer;
   padding: 0;
   background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-  transition: transform 0.15s, outline-color 0.15s;
   -webkit-appearance: none;
   appearance: none;
   outline: none;
@@ -134,6 +224,8 @@ body {
   border-radius: 50%;
   opacity: 0;
 }
+
+/* ─── Buttons ─────────────────────────────────────── */
 
 .btn {
   background: rgba(255, 255, 255, 0.1);
@@ -151,4 +243,10 @@ body {
 
 .btn:hover {
   background: rgba(255, 255, 255, 0.18);
+}
+
+.btn-small {
+  padding: 4px 10px;
+  font-size: 11px;
+  border-radius: 8px;
 }

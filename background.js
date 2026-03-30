@@ -39,12 +39,12 @@ async function injectAndStart(tabId, mode) {
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.action === "capture-rect" && sender.tab) {
     captureAndCrop(sender.tab.id, msg.rect, {
-      shadow: msg.shadow,
       borderRadius: msg.borderRadius || 0,
+      mode: msg.mode || "rectangle",
     });
   }
   if (msg.action === "get-capture") {
-    sendResponse({ dataUrl: pendingCapture });
+    sendResponse(pendingCapture);
     pendingCapture = null;
   }
 });
@@ -70,51 +70,20 @@ async function captureAndCrop(tabId, rect, options = {}) {
       return;
     }
 
-    // Crop the element from the screenshot
     const cropCanvas = new OffscreenCanvas(cropW, cropH);
     const cropCtx = cropCanvas.getContext("2d");
     cropCtx.drawImage(bitmap, cropX, cropY, cropW, cropH, 0, 0, cropW, cropH);
 
-    let finalCanvas;
-
-    if (options.shadow) {
-      // macOS-style shadow: pad the image and draw a drop shadow behind it
-      const pad = 80;
-      const radius = options.borderRadius;
-      finalCanvas = new OffscreenCanvas(cropW + pad * 2, cropH + pad * 2);
-      const ctx = finalCanvas.getContext("2d");
-
-      // Draw a shape with shadow (the shadow extends into the padding)
-      ctx.shadowColor = "rgba(0, 0, 0, 0.35)";
-      ctx.shadowBlur = 50;
-      ctx.shadowOffsetX = 0;
-      ctx.shadowOffsetY = 12;
-      ctx.fillStyle = "#000";
-      ctx.beginPath();
-      ctx.roundRect(pad, pad, cropW, cropH, radius);
-      ctx.fill();
-
-      // Reset shadow
-      ctx.shadowColor = "transparent";
-      ctx.shadowBlur = 0;
-      ctx.shadowOffsetX = 0;
-      ctx.shadowOffsetY = 0;
-
-      // Clip to rounded rect and draw the cropped image
-      ctx.beginPath();
-      ctx.roundRect(pad, pad, cropW, cropH, radius);
-      ctx.clip();
-      ctx.drawImage(cropCanvas, 0, 0, cropW, cropH, pad, pad, cropW, cropH);
-    } else {
-      finalCanvas = cropCanvas;
-    }
-
-    const finalBlob = await finalCanvas.convertToBlob({ type: "image/png" });
+    const finalBlob = await cropCanvas.convertToBlob({ type: "image/png" });
     const arrayBuffer = await finalBlob.arrayBuffer();
     const base64 = arrayBufferToBase64(arrayBuffer);
     const croppedDataUrl = "data:image/png;base64," + base64;
 
-    pendingCapture = croppedDataUrl;
+    pendingCapture = {
+      dataUrl: croppedDataUrl,
+      borderRadius: options.borderRadius,
+      mode: options.mode,
+    };
     chrome.tabs.create({ url: chrome.runtime.getURL("editor.html") });
     chrome.tabs.sendMessage(tabId, { action: "capture-complete" });
   } catch (err) {

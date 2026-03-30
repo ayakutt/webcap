@@ -10,9 +10,29 @@
     <canvas id="canvas"></canvas>
   </div>
   <div class="toolbar">
-    <div class="bg-options"></div>
-    <div class="separator"></div>
-    <button id="download" class="btn">Save image</button>
+    <div class="toolbar-row">
+      <label class="control">
+        <span class="control-label">Padding</span>
+        <input type="range" id="padding" min="0" max="200" value="80">
+        <span class="control-value" id="padding-val">80</span>
+      </label>
+      <label class="control">
+        <span class="control-label">Radius</span>
+        <input type="range" id="radius" min="0" max="48" value="0">
+        <span class="control-value" id="radius-val">0</span>
+      </label>
+      <label class="control">
+        <span class="control-label">Shadow</span>
+        <input type="checkbox" id="shadow" class="toggle-input" checked>
+      </label>
+      <div class="separator"></div>
+      <button id="plain" class="btn btn-small">Plain</button>
+    </div>
+    <div class="toolbar-row">
+      <div class="bg-options"></div>
+      <div class="separator"></div>
+      <button id="download" class="btn">Save image</button>
+    </div>
   </div>
   <script src="editor.js"></script>
 </body>

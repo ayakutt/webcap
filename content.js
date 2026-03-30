@@ -101,6 +101,7 @@
       requestAnimationFrame(() => {
         chrome.runtime.sendMessage({
           action: "capture-rect",
+          mode: "rectangle",
           rect: {
             x: Math.round(rect.x * window.devicePixelRatio),
             y: Math.round(rect.y * window.devicePixelRatio),
@@ -260,13 +261,13 @@
       requestAnimationFrame(() => {
         chrome.runtime.sendMessage({
           action: "capture-rect",
+          mode: "component",
           rect: {
             x: Math.round(rect.x * window.devicePixelRatio),
             y: Math.round(rect.y * window.devicePixelRatio),
             width: Math.round(rect.width * window.devicePixelRatio),
             height: Math.round(rect.height * window.devicePixelRatio),
           },
-          shadow: true,
           borderRadius: Math.round(borderRadius * window.devicePixelRatio),
         });
       });
