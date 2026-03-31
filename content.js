@@ -20,6 +20,10 @@
   let currentTarget = null;
   let ancestors = [];
   let ancestorIndex = 0;
+  let captureTarget = null;
+  let savedScrollX = 0;
+  let savedScrollY = 0;
+  let hiddenFixed = null;
 
   function init(captureMode) {
     mode = captureMode;
@@ -250,28 +254,90 @@
   }
 
   function captureComponent(el) {
-    // Get element's bounding rect and border-radius before removing UI
-    const rect = el.getBoundingClientRect();
     const computedStyle = getComputedStyle(el);
     const borderRadius = parseFloat(computedStyle.borderRadius) || 0;
+    const dpr = window.devicePixelRatio;
 
-    // Remove all webcap UI, wait for repaint, then use captureVisibleTab
+    // Save state for restoration after capture
+    savedScrollX = window.scrollX;
+    savedScrollY = window.scrollY;
+    captureTarget = el;
+
+    // Get element's document-relative position before cleanup
+    const rect = el.getBoundingClientRect();
+    const docX = rect.left + window.scrollX;
+    const docY = rect.top + window.scrollY;
+    const elWidth = rect.width;
+    const elHeight = rect.height;
+
     cleanup();
-    requestAnimationFrame(() => {
+
+    // Force instant scroll (override smooth scroll if page sets it)
+    const prevBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = "auto";
+
+    const fitsInViewport = elWidth <= window.innerWidth && elHeight <= window.innerHeight;
+
+    // Hide fixed/sticky elements so they don't overlap the capture
+    hiddenFixed = hideFixedElements(el);
+
+    if (fitsInViewport) {
+      // Scroll element fully into view, then single capture
+      el.scrollIntoView({ block: "nearest", inline: "nearest" });
       requestAnimationFrame(() => {
-        chrome.runtime.sendMessage({
-          action: "capture-rect",
-          mode: "component",
-          rect: {
-            x: Math.round(rect.x * window.devicePixelRatio),
-            y: Math.round(rect.y * window.devicePixelRatio),
-            width: Math.round(rect.width * window.devicePixelRatio),
-            height: Math.round(rect.height * window.devicePixelRatio),
-          },
-          borderRadius: Math.round(borderRadius * window.devicePixelRatio),
+        requestAnimationFrame(() => {
+          const newRect = el.getBoundingClientRect();
+          document.documentElement.style.scrollBehavior = prevBehavior;
+          chrome.runtime.sendMessage({
+            action: "capture-rect",
+            mode: "component",
+            rect: {
+              x: Math.round(newRect.x * dpr),
+              y: Math.round(newRect.y * dpr),
+              width: Math.round(newRect.width * dpr),
+              height: Math.round(newRect.height * dpr),
+            },
+            borderRadius: Math.round(borderRadius * dpr),
+          });
         });
       });
-    });
+    } else {
+      // Element larger than viewport — multi-tile capture via background
+      document.documentElement.style.scrollBehavior = prevBehavior;
+      chrome.runtime.sendMessage({
+        action: "capture-full-component",
+        docRect: { x: docX, y: docY, width: elWidth, height: elHeight },
+        viewportWidth: window.innerWidth,
+        viewportHeight: window.innerHeight,
+        dpr: dpr,
+        borderRadius: Math.round(borderRadius * dpr),
+      });
+    }
+  }
+
+  // ─── Fixed/Sticky Element Hiding ──────────────────────────────
+
+  function hideFixedElements(target) {
+    const hidden = [];
+    for (const el of document.querySelectorAll("*")) {
+      if (target.contains(el) || el.contains(target)) continue;
+      const pos = getComputedStyle(el).position;
+      if (pos === "fixed" || pos === "sticky") {
+        hidden.push({ el, prev: el.style.visibility });
+        el.style.setProperty("visibility", "hidden", "important");
+      }
+    }
+    return hidden;
+  }
+
+  function restoreFixedElements(hidden) {
+    for (const { el, prev } of hidden) {
+      if (prev) {
+        el.style.visibility = prev;
+      } else {
+        el.style.removeProperty("visibility");
+      }
+    }
   }
 
   // ─── Shared ──────────────────────────────────────────────────
@@ -361,11 +427,31 @@
 
   // ─── Message Listener ────────────────────────────────────────
 
-  chrome.runtime.onMessage.addListener((msg) => {
+  chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     if (msg.action === "start-capture") {
       init(msg.mode || "rectangle");
     }
+    if (msg.action === "prepare-tile") {
+      const prev = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = "auto";
+      window.scrollTo(msg.x, msg.y);
+      document.documentElement.style.scrollBehavior = prev;
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          sendResponse({ scrollX: window.scrollX, scrollY: window.scrollY });
+        });
+      });
+      return true;
+    }
     if (msg.action === "capture-complete") {
+      if (hiddenFixed) {
+        restoreFixedElements(hiddenFixed);
+        hiddenFixed = null;
+      }
+      if (captureTarget) {
+        window.scrollTo(savedScrollX, savedScrollY);
+        captureTarget = null;
+      }
       flash();
     }
   });

@@ -43,6 +43,9 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
       mode: msg.mode || "rectangle",
     });
   }
+  if (msg.action === "capture-full-component" && sender.tab) {
+    captureFullComponent(sender.tab.id, msg);
+  }
   if (msg.action === "get-capture") {
     sendResponse(pendingCapture);
     pendingCapture = null;
@@ -88,6 +91,87 @@ async function captureAndCrop(tabId, rect, options = {}) {
     chrome.tabs.sendMessage(tabId, { action: "capture-complete" });
   } catch (err) {
     console.error("webcap: capture failed", err);
+  }
+}
+
+async function captureFullComponent(tabId, data) {
+  try {
+    const { docRect, viewportWidth, viewportHeight, dpr, borderRadius } = data;
+
+    const totalW = Math.round(docRect.width * dpr);
+    const totalH = Math.round(docRect.height * dpr);
+
+    const canvas = new OffscreenCanvas(totalW, totalH);
+    const ctx = canvas.getContext("2d");
+
+    let isFirstTile = true;
+    for (let tileY = 0; tileY < docRect.height; tileY += viewportHeight) {
+      for (let tileX = 0; tileX < docRect.width; tileX += viewportWidth) {
+        // Throttle to stay under Chrome's 2 calls/sec captureVisibleTab limit
+        if (!isFirstTile) {
+          await new Promise((r) => setTimeout(r, 550));
+        }
+        isFirstTile = false;
+
+        // Ask content script to scroll to this tile
+        const result = await new Promise((resolve) => {
+          chrome.tabs.sendMessage(
+            tabId,
+            { action: "prepare-tile", x: docRect.x + tileX, y: docRect.y + tileY },
+            resolve
+          );
+        });
+
+        const dataUrl = await chrome.tabs.captureVisibleTab(null, { format: "png" });
+        const response = await fetch(dataUrl);
+        const blob = await response.blob();
+        const bitmap = await createImageBitmap(blob);
+
+        // Where the element sits in this viewport after scroll
+        const elVpX = docRect.x - result.scrollX;
+        const elVpY = docRect.y - result.scrollY;
+
+        // Visible portion of element (CSS pixels)
+        const visLeft = Math.max(0, elVpX);
+        const visTop = Math.max(0, elVpY);
+        const visRight = Math.min(viewportWidth, elVpX + docRect.width);
+        const visBottom = Math.min(viewportHeight, elVpY + docRect.height);
+
+        if (visRight <= visLeft || visBottom <= visTop) {
+          bitmap.close();
+          continue;
+        }
+
+        // Source rect in captured image (device pixels)
+        const srcX = Math.round(visLeft * dpr);
+        const srcY = Math.round(visTop * dpr);
+        const srcW = Math.round((visRight - visLeft) * dpr);
+        const srcH = Math.round((visBottom - visTop) * dpr);
+
+        // Destination in final stitched canvas (device pixels)
+        const destX = Math.round((visLeft - elVpX) * dpr);
+        const destY = Math.round((visTop - elVpY) * dpr);
+
+        ctx.drawImage(bitmap, srcX, srcY, srcW, srcH, destX, destY, srcW, srcH);
+        bitmap.close();
+      }
+    }
+
+    const finalBlob = await canvas.convertToBlob({ type: "image/png" });
+    const arrayBuffer = await finalBlob.arrayBuffer();
+    const base64 = arrayBufferToBase64(arrayBuffer);
+
+    pendingCapture = {
+      dataUrl: "data:image/png;base64," + base64,
+      borderRadius: borderRadius,
+      mode: "component",
+    };
+
+    chrome.tabs.create({ url: chrome.runtime.getURL("editor.html") });
+    chrome.tabs.sendMessage(tabId, { action: "capture-complete" });
+  } catch (err) {
+    console.error("webcap: full component capture failed", err);
+    chrome.tabs.sendMessage(tabId, { action: "capture-complete" });
   }
 }
 
