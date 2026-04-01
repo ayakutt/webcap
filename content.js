@@ -103,15 +103,14 @@
     cleanup();
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
+        const vv = window.visualViewport;
+        const vvOffX = vv ? vv.offsetLeft : 0;
+        const vvOffY = vv ? vv.offsetTop : 0;
         chrome.runtime.sendMessage({
           action: "capture-rect",
           mode: "rectangle",
-          rect: {
-            x: Math.round(rect.x * window.devicePixelRatio),
-            y: Math.round(rect.y * window.devicePixelRatio),
-            width: Math.round(rect.width * window.devicePixelRatio),
-            height: Math.round(rect.height * window.devicePixelRatio),
-          },
+          rect: { x: rect.x - vvOffX, y: rect.y - vvOffY, width: rect.width, height: rect.height },
+          viewportWidth: vv ? vv.width : window.innerWidth,
         });
       });
     });
@@ -256,7 +255,6 @@
   function captureComponent(el) {
     const computedStyle = getComputedStyle(el);
     const borderRadius = parseFloat(computedStyle.borderRadius) || 0;
-    const dpr = window.devicePixelRatio;
 
     // Save state for restoration after capture
     savedScrollX = window.scrollX;
@@ -276,7 +274,11 @@
     const prevBehavior = document.documentElement.style.scrollBehavior;
     document.documentElement.style.scrollBehavior = "auto";
 
-    const fitsInViewport = elWidth <= window.innerWidth && elHeight <= window.innerHeight;
+    // Use visual viewport to handle pinch-to-zoom
+    const vv = window.visualViewport;
+    const vpWidth = vv ? vv.width : window.innerWidth;
+    const vpHeight = vv ? vv.height : window.innerHeight;
+    const fitsInViewport = elWidth <= vpWidth && elHeight <= vpHeight;
 
     // Hide fixed/sticky elements so they don't overlap the capture
     hiddenFixed = hideFixedElements(el);
@@ -287,17 +289,17 @@
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           const newRect = el.getBoundingClientRect();
+          const vvNow = window.visualViewport;
+          const vvOffX = vvNow ? vvNow.offsetLeft : 0;
+          const vvOffY = vvNow ? vvNow.offsetTop : 0;
+          const vvW = vvNow ? vvNow.width : window.innerWidth;
           document.documentElement.style.scrollBehavior = prevBehavior;
           chrome.runtime.sendMessage({
             action: "capture-rect",
             mode: "component",
-            rect: {
-              x: Math.round(newRect.x * dpr),
-              y: Math.round(newRect.y * dpr),
-              width: Math.round(newRect.width * dpr),
-              height: Math.round(newRect.height * dpr),
-            },
-            borderRadius: Math.round(borderRadius * dpr),
+            rect: { x: newRect.x - vvOffX, y: newRect.y - vvOffY, width: newRect.width, height: newRect.height },
+            viewportWidth: vvW,
+            borderRadius: borderRadius,
           });
         });
       });
@@ -307,10 +309,9 @@
       chrome.runtime.sendMessage({
         action: "capture-full-component",
         docRect: { x: docX, y: docY, width: elWidth, height: elHeight },
-        viewportWidth: window.innerWidth,
-        viewportHeight: window.innerHeight,
-        dpr: dpr,
-        borderRadius: Math.round(borderRadius * dpr),
+        viewportWidth: vpWidth,
+        viewportHeight: vpHeight,
+        borderRadius: borderRadius,
       });
     }
   }
@@ -432,13 +433,19 @@
       init(msg.mode || "rectangle");
     }
     if (msg.action === "prepare-tile") {
+      const vv = window.visualViewport;
+      const vvOffX = vv ? vv.offsetLeft : 0;
+      const vvOffY = vv ? vv.offsetTop : 0;
       const prev = document.documentElement.style.scrollBehavior;
       document.documentElement.style.scrollBehavior = "auto";
-      window.scrollTo(msg.x, msg.y);
+      window.scrollTo(msg.x - vvOffX, msg.y - vvOffY);
       document.documentElement.style.scrollBehavior = prev;
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          sendResponse({ scrollX: window.scrollX, scrollY: window.scrollY });
+          sendResponse({
+            scrollX: window.scrollX + vvOffX,
+            scrollY: window.scrollY + vvOffY,
+          });
         });
       });
       return true;

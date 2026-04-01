@@ -41,6 +41,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     captureAndCrop(sender.tab.id, msg.rect, {
       borderRadius: msg.borderRadius || 0,
       mode: msg.mode || "rectangle",
+      viewportWidth: msg.viewportWidth,
     });
   }
   if (msg.action === "capture-full-component" && sender.tab) {
@@ -62,11 +63,13 @@ async function captureAndCrop(tabId, rect, options = {}) {
     const blob = await response.blob();
     const bitmap = await createImageBitmap(blob);
 
-    // Clamp rect to image bounds
-    const cropX = Math.max(0, Math.min(rect.x, bitmap.width));
-    const cropY = Math.max(0, Math.min(rect.y, bitmap.height));
-    const cropW = Math.min(rect.width, bitmap.width - cropX);
-    const cropH = Math.min(rect.height, bitmap.height - cropY);
+    // Derive scale from actual image dimensions (handles zoom correctly)
+    const scale = options.viewportWidth ? bitmap.width / options.viewportWidth : 1;
+
+    const cropX = Math.max(0, Math.min(Math.round(rect.x * scale), bitmap.width));
+    const cropY = Math.max(0, Math.min(Math.round(rect.y * scale), bitmap.height));
+    const cropW = Math.min(Math.round(rect.width * scale), bitmap.width - cropX);
+    const cropH = Math.min(Math.round(rect.height * scale), bitmap.height - cropY);
 
     if (cropW <= 0 || cropH <= 0) {
       console.error("webcap: invalid crop dimensions");
@@ -84,7 +87,7 @@ async function captureAndCrop(tabId, rect, options = {}) {
 
     pendingCapture = {
       dataUrl: croppedDataUrl,
-      borderRadius: options.borderRadius,
+      borderRadius: Math.round((options.borderRadius || 0) * scale),
       mode: options.mode,
     };
     chrome.tabs.create({ url: chrome.runtime.getURL("editor.html") });
@@ -96,13 +99,11 @@ async function captureAndCrop(tabId, rect, options = {}) {
 
 async function captureFullComponent(tabId, data) {
   try {
-    const { docRect, viewportWidth, viewportHeight, dpr, borderRadius } = data;
+    const { docRect, viewportWidth, viewportHeight, borderRadius } = data;
 
-    const totalW = Math.round(docRect.width * dpr);
-    const totalH = Math.round(docRect.height * dpr);
-
-    const canvas = new OffscreenCanvas(totalW, totalH);
-    const ctx = canvas.getContext("2d");
+    let canvas = null;
+    let ctx = null;
+    let scale = 0;
 
     let isFirstTile = true;
     for (let tileY = 0; tileY < docRect.height; tileY += viewportHeight) {
@@ -127,6 +128,16 @@ async function captureFullComponent(tabId, data) {
         const blob = await response.blob();
         const bitmap = await createImageBitmap(blob);
 
+        // Derive scale from first tile (handles zoom correctly)
+        if (!canvas) {
+          scale = bitmap.width / viewportWidth;
+          canvas = new OffscreenCanvas(
+            Math.round(docRect.width * scale),
+            Math.round(docRect.height * scale)
+          );
+          ctx = canvas.getContext("2d");
+        }
+
         // Where the element sits in this viewport after scroll
         const elVpX = docRect.x - result.scrollX;
         const elVpY = docRect.y - result.scrollY;
@@ -143,14 +154,14 @@ async function captureFullComponent(tabId, data) {
         }
 
         // Source rect in captured image (device pixels)
-        const srcX = Math.round(visLeft * dpr);
-        const srcY = Math.round(visTop * dpr);
-        const srcW = Math.round((visRight - visLeft) * dpr);
-        const srcH = Math.round((visBottom - visTop) * dpr);
+        const srcX = Math.round(visLeft * scale);
+        const srcY = Math.round(visTop * scale);
+        const srcW = Math.round((visRight - visLeft) * scale);
+        const srcH = Math.round((visBottom - visTop) * scale);
 
         // Destination in final stitched canvas (device pixels)
-        const destX = Math.round((visLeft - elVpX) * dpr);
-        const destY = Math.round((visTop - elVpY) * dpr);
+        const destX = Math.round((visLeft - elVpX) * scale);
+        const destY = Math.round((visTop - elVpY) * scale);
 
         ctx.drawImage(bitmap, srcX, srcY, srcW, srcH, destX, destY, srcW, srcH);
         bitmap.close();
@@ -163,7 +174,7 @@ async function captureFullComponent(tabId, data) {
 
     pendingCapture = {
       dataUrl: "data:image/png;base64," + base64,
-      borderRadius: borderRadius,
+      borderRadius: Math.round(borderRadius * scale),
       mode: "component",
     };
 
