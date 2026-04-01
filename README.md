@@ -37,8 +37,10 @@ Coming soon.
 | `Cmd+Shift+E` / `Ctrl+Shift+E` | Component capture |
 | `Cmd+Shift+S` / `Ctrl+Shift+S` | Rectangle capture |
 | `Tab` | Switch between modes |
-| `Arrow Up/Down` | Traverse DOM tree (component mode) |
-| `Scroll` | Traverse DOM tree (component mode) |
+| `Arrow Up/Down` | Expand/narrow selection (component mode) |
+| `Arrow Left/Right` | Navigate siblings (component mode) |
+| `Scroll` | Expand/narrow selection (component mode) |
+| `Enter` | Capture selected component |
 | `Esc` | Cancel |
 
 ## Privacy
