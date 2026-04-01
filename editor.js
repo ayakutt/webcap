@@ -15,8 +15,33 @@
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
 
+  // Sample background color from image corners
+  function sampleEdgeColor() {
+    const tmp = document.createElement("canvas");
+    tmp.width = img.width;
+    tmp.height = img.height;
+    const tctx = tmp.getContext("2d");
+    tctx.drawImage(img, 0, 0);
+
+    const s = 2;
+    const corners = [
+      tctx.getImageData(s, s, 1, 1).data,
+      tctx.getImageData(img.width - 1 - s, s, 1, 1).data,
+      tctx.getImageData(s, img.height - 1 - s, 1, 1).data,
+      tctx.getImageData(img.width - 1 - s, img.height - 1 - s, 1, 1).data,
+    ];
+
+    const r = Math.round(corners.reduce((sum, c) => sum + c[0], 0) / 4);
+    const g = Math.round(corners.reduce((sum, c) => sum + c[1], 0) / 4);
+    const b = Math.round(corners.reduce((sum, c) => sum + c[2], 0) / 4);
+    return `rgb(${r}, ${g}, ${b})`;
+  }
+
+  const sampledBg = sampleEdgeColor();
+
   // State
-  let currentPadding = 80;
+  let currentMargin = 80;
+  let currentPadding = 0;
   let currentRadius = capture.borderRadius || 0;
   let shadowEnabled = true;
 
@@ -37,15 +62,18 @@
   let currentBg = backgrounds[0];
 
   function render() {
-    const pad = currentPadding;
-    const w = img.width + pad * 2;
-    const h = img.height + pad * 2;
+    const margin = currentMargin;
+    const inset = currentPadding;
+    const cardW = img.width + inset * 2;
+    const cardH = img.height + inset * 2;
+    const w = cardW + margin * 2;
+    const h = cardH + margin * 2;
     canvas.width = w;
     canvas.height = h;
 
     ctx.clearRect(0, 0, w, h);
 
-    // Background
+    // Outer background (user-selected)
     if (currentBg.type === "solid") {
       ctx.fillStyle = currentBg.color;
       ctx.fillRect(0, 0, w, h);
@@ -56,8 +84,8 @@
       ctx.fillRect(0, 0, w, h);
     }
 
-    // Shadow
-    if (shadowEnabled && pad > 0) {
+    // Shadow (on the card)
+    if (shadowEnabled && margin > 0) {
       ctx.save();
       ctx.shadowColor = "rgba(0, 0, 0, 0.35)";
       ctx.shadowBlur = 50;
@@ -65,36 +93,50 @@
       ctx.shadowOffsetY = 12;
       ctx.fillStyle = "#000";
       ctx.beginPath();
-      ctx.roundRect(pad, pad, img.width, img.height, currentRadius);
+      ctx.roundRect(margin, margin, cardW, cardH, currentRadius);
       ctx.fill();
       ctx.restore();
     }
 
-    // Image with rounded corners
+    // Card: clip to rounded rect, fill inset with sampled color, draw image
     ctx.save();
     if (currentRadius > 0) {
       ctx.beginPath();
-      ctx.roundRect(pad, pad, img.width, img.height, currentRadius);
+      ctx.roundRect(margin, margin, cardW, cardH, currentRadius);
       ctx.clip();
     }
-    ctx.drawImage(img, pad, pad);
+    if (inset > 0) {
+      ctx.fillStyle = sampledBg;
+      ctx.fillRect(margin, margin, cardW, cardH);
+    }
+    ctx.drawImage(img, margin + inset, margin + inset);
     ctx.restore();
   }
 
   // ─── Effect Controls ─────────────────────────────────────
 
+  const marginSlider = document.getElementById("margin");
   const paddingSlider = document.getElementById("padding");
   const radiusSlider = document.getElementById("radius");
   const shadowToggle = document.getElementById("shadow");
   const plainBtn = document.getElementById("plain");
+  const marginVal = document.getElementById("margin-val");
   const paddingVal = document.getElementById("padding-val");
   const radiusVal = document.getElementById("radius-val");
 
+  marginSlider.value = currentMargin;
   paddingSlider.value = currentPadding;
   radiusSlider.value = currentRadius;
   shadowToggle.checked = shadowEnabled;
+  marginVal.textContent = currentMargin;
   paddingVal.textContent = currentPadding;
   radiusVal.textContent = currentRadius;
+
+  marginSlider.addEventListener("input", () => {
+    currentMargin = parseInt(marginSlider.value);
+    marginVal.textContent = currentMargin;
+    render();
+  });
 
   paddingSlider.addEventListener("input", () => {
     currentPadding = parseInt(paddingSlider.value);
@@ -114,12 +156,15 @@
   });
 
   plainBtn.addEventListener("click", () => {
+    currentMargin = 0;
     currentPadding = 0;
     currentRadius = 0;
     shadowEnabled = false;
+    marginSlider.value = 0;
     paddingSlider.value = 0;
     radiusSlider.value = 0;
     shadowToggle.checked = false;
+    marginVal.textContent = "0";
     paddingVal.textContent = "0";
     radiusVal.textContent = "0";
     render();

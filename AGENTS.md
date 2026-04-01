@@ -46,6 +46,7 @@ This is a Manifest V3 Chrome extension with no build step, no frameworks, no dep
 
 ### Editor
 
+- **Margin vs Padding:** Margin adds outer space filled with the user-selected background. Padding adds inner space between the card edge and the image, filled with the image's own background color (auto-sampled from corner pixels). This lets users extend the content's background outward without manually color-matching.
 - Backgrounds: transparent (default), white, light gray, dark gray, black, 5 gradient presets (sunset, ocean, forest, dusk, peach), custom color picker.
 - Canvas composites the background behind the captured image (transparent areas show the chosen background).
 - Download button exports as PNG.
