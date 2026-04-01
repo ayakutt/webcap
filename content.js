@@ -325,19 +325,29 @@
       if (target.contains(el) || el.contains(target)) continue;
       const pos = getComputedStyle(el).position;
       if (pos === "fixed" || pos === "sticky") {
-        hidden.push({ el, prev: el.style.visibility });
-        el.style.setProperty("visibility", "hidden", "important");
+        hidden.push({
+          el,
+          prevOpacity: el.style.opacity,
+          prevPointer: el.style.pointerEvents,
+        });
+        el.style.setProperty("opacity", "0", "important");
+        el.style.setProperty("pointer-events", "none", "important");
       }
     }
     return hidden;
   }
 
   function restoreFixedElements(hidden) {
-    for (const { el, prev } of hidden) {
-      if (prev) {
-        el.style.visibility = prev;
+    for (const { el, prevOpacity, prevPointer } of hidden) {
+      if (prevOpacity) {
+        el.style.opacity = prevOpacity;
       } else {
-        el.style.removeProperty("visibility");
+        el.style.removeProperty("opacity");
+      }
+      if (prevPointer) {
+        el.style.pointerEvents = prevPointer;
+      } else {
+        el.style.removeProperty("pointer-events");
       }
     }
   }
