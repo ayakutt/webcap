@@ -84,17 +84,35 @@
       ctx.fillRect(0, 0, w, h);
     }
 
-    // Shadow (on the card)
+    // Shadow (multi-layer macOS-style, works on light and dark backgrounds)
     if (shadowEnabled && margin > 0) {
+      const layers = [
+        // Wide soft ambient shadow
+        { color: "rgba(0, 0, 0, 0.20)", blur: 80, offY: 30 },
+        // Medium shadow for depth
+        { color: "rgba(0, 0, 0, 0.22)", blur: 40, offY: 12 },
+        // Tight contact shadow
+        { color: "rgba(0, 0, 0, 0.28)", blur: 12, offY: 4 },
+      ];
+      for (const { color, blur, offY } of layers) {
+        ctx.save();
+        ctx.shadowColor = color;
+        ctx.shadowBlur = blur;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = offY;
+        ctx.fillStyle = "#000";
+        ctx.beginPath();
+        ctx.roundRect(margin, margin, cardW, cardH, currentRadius);
+        ctx.fill();
+        ctx.restore();
+      }
+      // Subtle light edge for visibility on dark backgrounds
       ctx.save();
-      ctx.shadowColor = "rgba(0, 0, 0, 0.35)";
-      ctx.shadowBlur = 50;
-      ctx.shadowOffsetX = 0;
-      ctx.shadowOffsetY = 12;
-      ctx.fillStyle = "#000";
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
+      ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.roundRect(margin, margin, cardW, cardH, currentRadius);
-      ctx.fill();
+      ctx.roundRect(margin - 0.5, margin - 0.5, cardW + 1, cardH + 1, currentRadius);
+      ctx.stroke();
       ctx.restore();
     }
 
