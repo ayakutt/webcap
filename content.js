@@ -26,6 +26,7 @@
   let hiddenFixed = null;
 
   function init(captureMode) {
+    cleanup();
     mode = captureMode;
     if (mode === "rectangle") {
       startRectangleMode();
