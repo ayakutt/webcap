@@ -355,6 +355,13 @@
       e.stopPropagation();
       switchMode();
     }
+    if (mode === "component" && e.key === "Enter") {
+      e.preventDefault();
+      e.stopPropagation();
+      const el = ancestors[ancestorIndex];
+      if (el) captureComponent(el);
+      return;
+    }
     if (mode === "component" && (e.key === "ArrowUp" || e.key === "ArrowDown")) {
       e.preventDefault();
       e.stopPropagation();
