@@ -20,7 +20,7 @@
     const tmp = document.createElement("canvas");
     tmp.width = img.width;
     tmp.height = img.height;
-    const tctx = tmp.getContext("2d");
+    const tctx = tmp.getContext("2d", { willReadFrequently: true });
     tctx.drawImage(img, 0, 0);
 
     const s = 2;
