@@ -31,9 +31,16 @@
       tctx.getImageData(img.width - 1 - s, img.height - 1 - s, 1, 1).data,
     ];
 
-    const r = Math.round(corners.reduce((sum, c) => sum + c[0], 0) / 4);
-    const g = Math.round(corners.reduce((sum, c) => sum + c[1], 0) / 4);
-    const b = Math.round(corners.reduce((sum, c) => sum + c[2], 0) / 4);
+    // Pick the most common corner color (mode), falling back to white for transparent corners
+    const counts = {};
+    for (const c of corners) {
+      if (c[3] < 128) continue; // skip transparent pixels
+      const key = `${c[0]},${c[1]},${c[2]}`;
+      counts[key] = (counts[key] || 0) + 1;
+    }
+    const best = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
+    if (!best) return `rgb(255, 255, 255)`;
+    const [r, g, b] = best[0].split(",");
     return `rgb(${r}, ${g}, ${b})`;
   }
 
