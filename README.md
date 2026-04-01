@@ -44,7 +44,3 @@ Coming soon.
 ## Privacy
 
 Webcap runs entirely in your browser. It does not collect any data, make any network requests, or require any account.
-
-## License
-
-MIT
