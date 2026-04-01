@@ -123,7 +123,7 @@
     document.body.classList.add("webcap-component-mode");
     hint = document.createElement("div");
     hint.id = "webcap-hint";
-    hint.textContent = "Scroll or up/down keys (↑↓) to select parent/child · Enter / click to capture · Tab (↹) for rectangle mode · Esc to cancel";
+    hint.textContent = "Scroll or up/down keys (↑↓) to expand/narrow · Left/right keys (←→) for next/previous · Enter / click to capture · Tab (↹) for rectangle mode · Esc to cancel";
     document.body.appendChild(hint);
 
     highlightEl = document.createElement("div");
@@ -170,7 +170,28 @@
 
   function traverseDown() {
     if (!ancestors.length) return;
-    ancestorIndex = Math.max(ancestorIndex - 1, 0);
+    if (ancestorIndex > 0) {
+      ancestorIndex--;
+    } else {
+      // Already at deepest in chain — go to first child element
+      const current = ancestors[0];
+      const firstChild = current.firstElementChild;
+      if (firstChild) {
+        currentTarget = firstChild;
+        ancestors = buildAncestorChain(firstChild);
+        ancestorIndex = 0;
+      }
+    }
+  }
+
+  function traverseToSibling(direction) {
+    if (!ancestors.length) return;
+    const current = ancestors[ancestorIndex];
+    const sibling = direction === "next" ? current.nextElementSibling : current.previousElementSibling;
+    if (!sibling) return;
+    currentTarget = sibling;
+    ancestors = buildAncestorChain(sibling);
+    ancestorIndex = 0;
   }
 
   function onComponentWheel(e) {
@@ -373,13 +394,17 @@
       if (el) captureComponent(el);
       return;
     }
-    if (mode === "component" && (e.key === "ArrowUp" || e.key === "ArrowDown")) {
+    if (mode === "component" && (e.key === "ArrowUp" || e.key === "ArrowDown" || e.key === "ArrowLeft" || e.key === "ArrowRight")) {
       e.preventDefault();
       e.stopPropagation();
       if (e.key === "ArrowUp") {
         traverseUp();
-      } else {
+      } else if (e.key === "ArrowDown") {
         traverseDown();
+      } else if (e.key === "ArrowLeft") {
+        traverseToSibling("prev");
+      } else {
+        traverseToSibling("next");
       }
       if (ancestors[ancestorIndex]) {
         const rect = ancestors[ancestorIndex].getBoundingClientRect();
