@@ -244,6 +244,46 @@
   });
   optionsEl.appendChild(picker);
 
+  // ─── Copy to Clipboard ────────────────────────────────────
+
+  const copyBtn = document.getElementById("copy");
+  copyBtn.addEventListener("click", () => {
+    canvas.toBlob(async (blob) => {
+      try {
+        await navigator.clipboard.write([
+          new ClipboardItem({ "image/png": blob }),
+        ]);
+        copyBtn.textContent = "Copied!";
+        setTimeout(() => (copyBtn.textContent = "Copy"), 1500);
+      } catch {
+        copyBtn.textContent = "Failed";
+        setTimeout(() => (copyBtn.textContent = "Copy"), 1500);
+      }
+    }, "image/png");
+  });
+
+  // ─── Share ───────────────────────────────────────────────
+
+  const shareBtn = document.getElementById("share");
+  if (!navigator.canShare) {
+    shareBtn.style.display = "none";
+  } else {
+    shareBtn.addEventListener("click", () => {
+      canvas.toBlob(async (blob) => {
+        const file = new File([blob], "webcap.png", { type: "image/png" });
+        if (!navigator.canShare({ files: [file] })) {
+          shareBtn.style.display = "none";
+          return;
+        }
+        try {
+          await navigator.share({ files: [file] });
+        } catch {
+          // user cancelled — ignore
+        }
+      }, "image/png");
+    });
+  }
+
   // ─── Download ────────────────────────────────────────────
 
   document.getElementById("download").addEventListener("click", () => {
