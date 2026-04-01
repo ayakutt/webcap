@@ -44,7 +44,7 @@
 
     hint = document.createElement("div");
     hint.id = "webcap-hint";
-    hint.textContent = "Drag to select area · Tab for component mode · Esc to cancel";
+    hint.textContent = "Drag to select area · Tab (↹) for component mode · Esc to cancel";
     document.body.appendChild(hint);
 
     document.body.classList.add("webcap-active");
@@ -123,7 +123,7 @@
     document.body.classList.add("webcap-component-mode");
     hint = document.createElement("div");
     hint.id = "webcap-hint";
-    hint.textContent = "Hover to detect · Scroll/↑↓ to traverse · Click to capture · Tab for rectangle mode · Esc to cancel";
+    hint.textContent = "Scroll or up/down keys (↑↓) to select parent/child · Enter / click to capture · Tab (↹) for rectangle mode · Esc to cancel";
     document.body.appendChild(hint);
 
     highlightEl = document.createElement("div");
