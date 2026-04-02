@@ -198,6 +198,12 @@
   // ─── Background Swatches ─────────────────────────────────
 
   const optionsEl = document.querySelector(".bg-options");
+  const setActiveBackgroundControl = (control) => {
+    document.querySelectorAll(".swatch, .color-picker").forEach((el) => {
+      el.classList.remove("active");
+    });
+    control.classList.add("active");
+  };
 
   backgrounds.forEach((bg, i) => {
     if (bg === null) {
@@ -209,21 +215,19 @@
 
     const swatch = document.createElement("button");
     swatch.className = "swatch" + (i === 0 ? " active" : "");
+    swatch.type = "button";
     swatch.title = bg.name;
 
     if (bg.type === "transparent") {
       swatch.classList.add("checkerboard");
     } else if (bg.type === "solid") {
       swatch.style.background = bg.color;
-      if (bg.color === "#ffffff") swatch.classList.add("solid-white");
-      if (bg.color === "#1e1e1e" || bg.color === "#000000") swatch.classList.add("needs-ring");
     } else {
       swatch.style.background = `linear-gradient(135deg, ${bg.stops.map((s) => s[1]).join(", ")})`;
     }
 
     swatch.addEventListener("click", () => {
-      document.querySelectorAll(".swatch, .color-picker").forEach((s) => s.classList.remove("active"));
-      swatch.classList.add("active");
+      setActiveBackgroundControl(swatch);
       currentBg = bg;
       render();
     });
@@ -238,7 +242,7 @@
   picker.value = "#4a90d9";
   picker.title = "Custom color";
   picker.addEventListener("input", () => {
-    document.querySelectorAll(".swatch").forEach((s) => s.classList.remove("active"));
+    setActiveBackgroundControl(picker);
     currentBg = { type: "solid", color: picker.value };
     render();
   });
