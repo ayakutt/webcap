@@ -90,8 +90,7 @@ async function captureAndCrop(tabId, rect, options = {}) {
       borderRadius: Math.round((options.borderRadius || 0) * scale),
       mode: options.mode,
     };
-    chrome.tabs.create({ url: chrome.runtime.getURL("editor.html") });
-    chrome.tabs.sendMessage(tabId, { action: "capture-complete" });
+    await finishCapture(tabId);
   } catch (err) {
     console.error("webcap: capture failed", err);
   }
@@ -178,12 +177,20 @@ async function captureFullComponent(tabId, data) {
       mode: "component",
     };
 
-    chrome.tabs.create({ url: chrome.runtime.getURL("editor.html") });
-    chrome.tabs.sendMessage(tabId, { action: "capture-complete" });
+    await finishCapture(tabId);
   } catch (err) {
     console.error("webcap: full component capture failed", err);
     chrome.tabs.sendMessage(tabId, { action: "capture-complete" });
   }
+}
+
+async function finishCapture(tabId) {
+  try {
+    await chrome.tabs.sendMessage(tabId, { action: "capture-complete" });
+  } catch (err) {
+    console.warn("webcap: failed to notify tab before opening editor", err);
+  }
+  await chrome.tabs.create({ url: chrome.runtime.getURL("editor.html") });
 }
 
 function arrayBufferToBase64(buffer) {

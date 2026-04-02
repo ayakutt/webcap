@@ -40,7 +40,9 @@
   function startRectangleMode() {
     overlay = document.createElement("div");
     overlay.id = "webcap-overlay";
+    overlay.tabIndex = -1;
     document.body.appendChild(overlay);
+    focusCaptureUi();
 
     hint = document.createElement("div");
     hint.id = "webcap-hint";
@@ -49,7 +51,10 @@
 
     document.body.classList.add("webcap-active");
     overlay.addEventListener("mousedown", onMouseDown);
-    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("keydown", onKeyDown, true);
+    document.addEventListener("keyup", onKeyGuard, true);
+    document.addEventListener("keypress", onKeyGuard, true);
+    document.addEventListener("focusin", onFocusIn, true);
   }
 
   function onMouseDown(e) {
@@ -120,6 +125,12 @@
   // ─── Component Mode ──────────────────────────────────────────
 
   function startComponentMode() {
+    overlay = document.createElement("div");
+    overlay.id = "webcap-overlay";
+    overlay.className = "component-mode";
+    overlay.tabIndex = -1;
+    document.body.appendChild(overlay);
+
     document.body.classList.add("webcap-component-mode");
     hint = document.createElement("div");
     hint.id = "webcap-hint";
@@ -134,16 +145,22 @@
     tooltipEl.id = "webcap-component-tooltip";
     document.body.appendChild(tooltipEl);
 
-    document.addEventListener("mousemove", onComponentMouseMove, true);
-    document.addEventListener("wheel", onComponentWheel, { capture: true, passive: false });
-    document.addEventListener("click", onComponentClick, true);
-    document.addEventListener("keydown", onKeyDown);
+    focusCaptureUi();
+    overlay.addEventListener("mousemove", onComponentMouseMove);
+    overlay.addEventListener("mousedown", onComponentMouseDown);
+    overlay.addEventListener("mouseup", onComponentMouseUp);
+    overlay.addEventListener("click", onComponentClick);
+    overlay.addEventListener("wheel", onComponentWheel, { passive: false });
+    document.addEventListener("keydown", onKeyDown, true);
+    document.addEventListener("keyup", onKeyGuard, true);
+    document.addEventListener("keypress", onKeyGuard, true);
+    document.addEventListener("focusin", onFocusIn, true);
     window.addEventListener("scroll", onPageScroll, true);
   }
 
   function onComponentMouseMove(e) {
-    const el = document.elementFromPoint(e.clientX, e.clientY);
-    if (!el || el === highlightEl || el === tooltipEl || el === hint) return;
+    const el = getPageElementAtPoint(e.clientX, e.clientY);
+    if (!el) return;
 
     if (el !== currentTarget) {
       currentTarget = el;
@@ -196,8 +213,7 @@
 
   function onComponentWheel(e) {
     if (!ancestors.length) return;
-    e.preventDefault();
-    e.stopPropagation();
+    consumeEvent(e);
 
     if (e.deltaY < 0) {
       traverseUp();
@@ -267,11 +283,18 @@
   }
 
   function onComponentClick(e) {
-    e.preventDefault();
-    e.stopPropagation();
+    consumeEvent(e);
     const el = ancestors[ancestorIndex];
     if (!el) return;
     captureComponent(el);
+  }
+
+  function onComponentMouseDown(e) {
+    consumeEvent(e);
+  }
+
+  function onComponentMouseUp(e) {
+    consumeEvent(e);
   }
 
   function captureComponent(el) {
@@ -375,28 +398,86 @@
 
   // ─── Shared ──────────────────────────────────────────────────
 
+  function consumeEvent(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (typeof e.stopImmediatePropagation === "function") {
+      e.stopImmediatePropagation();
+    }
+  }
+
+  function focusCaptureUi() {
+    if (
+      document.activeElement &&
+      document.activeElement !== document.body &&
+      typeof document.activeElement.blur === "function"
+    ) {
+      document.activeElement.blur();
+    }
+    overlay?.focus({ preventScroll: true });
+  }
+
+  function onFocusIn(e) {
+    if (overlay && e.target !== overlay) {
+      focusCaptureUi();
+    }
+  }
+
+  function shouldGuardKey(e) {
+    if (e.key === "Escape" || e.key === "Tab" || e.key === "Enter") {
+      return true;
+    }
+    if (e.key === " " || e.key === "Spacebar") {
+      return true;
+    }
+    return mode === "component" && (
+      e.key === "ArrowUp" ||
+      e.key === "ArrowDown" ||
+      e.key === "ArrowLeft" ||
+      e.key === "ArrowRight"
+    );
+  }
+
+  function onKeyGuard(e) {
+    if (shouldGuardKey(e)) {
+      consumeEvent(e);
+    }
+  }
+
+  function getPageElementAtPoint(x, y) {
+    return document.elementsFromPoint(x, y).find((el) => (
+      el !== overlay &&
+      el !== selection &&
+      el !== hint &&
+      el !== highlightEl &&
+      el !== tooltipEl &&
+      el.id !== "webcap-flash"
+    )) || null;
+  }
+
   function onKeyDown(e) {
     if (e.key === "Escape") {
-      e.preventDefault();
-      e.stopPropagation();
+      consumeEvent(e);
       cleanup();
       return;
     }
     if (e.key === "Tab") {
-      e.preventDefault();
-      e.stopPropagation();
+      consumeEvent(e);
       switchMode();
+      return;
+    }
+    if (e.key === " " || e.key === "Spacebar") {
+      consumeEvent(e);
+      return;
     }
     if (mode === "component" && e.key === "Enter") {
-      e.preventDefault();
-      e.stopPropagation();
+      consumeEvent(e);
       const el = ancestors[ancestorIndex];
       if (el) captureComponent(el);
       return;
     }
     if (mode === "component" && (e.key === "ArrowUp" || e.key === "ArrowDown" || e.key === "ArrowLeft" || e.key === "ArrowRight")) {
-      e.preventDefault();
-      e.stopPropagation();
+      consumeEvent(e);
       if (e.key === "ArrowUp") {
         traverseUp();
       } else if (e.key === "ArrowDown") {
@@ -415,19 +496,27 @@
 
   function switchMode() {
     // Tear down current mode UI
-    if (overlay) { overlay.remove(); overlay = null; }
+    if (overlay) {
+      overlay.removeEventListener("mousemove", onComponentMouseMove);
+      overlay.removeEventListener("mousedown", onComponentMouseDown);
+      overlay.removeEventListener("mouseup", onComponentMouseUp);
+      overlay.removeEventListener("click", onComponentClick);
+      overlay.removeEventListener("wheel", onComponentWheel);
+      overlay.remove();
+      overlay = null;
+    }
     if (selection) { selection.remove(); selection = null; }
     if (highlightEl) { highlightEl.remove(); highlightEl = null; }
     if (tooltipEl) { tooltipEl.remove(); tooltipEl = null; }
     if (hint) { hint.remove(); hint = null; }
     document.removeEventListener("mousemove", onMouseMove);
     document.removeEventListener("mouseup", onMouseUp);
-    document.removeEventListener("mousemove", onComponentMouseMove, true);
-    document.removeEventListener("wheel", onComponentWheel, true);
-    document.removeEventListener("click", onComponentClick, true);
-    document.removeEventListener("keydown", onKeyDown);
+    document.removeEventListener("keydown", onKeyDown, true);
+    document.removeEventListener("keyup", onKeyGuard, true);
+    document.removeEventListener("keypress", onKeyGuard, true);
+    document.removeEventListener("focusin", onFocusIn, true);
     window.removeEventListener("scroll", onPageScroll, true);
-    document.body.classList.remove("webcap-component-mode");
+    document.body.classList.remove("webcap-active", "webcap-component-mode");
     isDragging = false;
     currentTarget = null;
     ancestors = [];
@@ -443,24 +532,37 @@
   }
 
   function flash() {
-    const el = document.createElement("div");
-    el.id = "webcap-flash";
-    document.body.appendChild(el);
-    el.addEventListener("animationend", () => el.remove());
+    return new Promise((resolve) => {
+      const el = document.createElement("div");
+      el.id = "webcap-flash";
+      document.body.appendChild(el);
+      el.addEventListener("animationend", () => {
+        el.remove();
+        resolve();
+      }, { once: true });
+    });
   }
 
   function cleanup() {
-    if (overlay) { overlay.remove(); overlay = null; }
+    if (overlay) {
+      overlay.removeEventListener("mousemove", onComponentMouseMove);
+      overlay.removeEventListener("mousedown", onComponentMouseDown);
+      overlay.removeEventListener("mouseup", onComponentMouseUp);
+      overlay.removeEventListener("click", onComponentClick);
+      overlay.removeEventListener("wheel", onComponentWheel);
+      overlay.remove();
+      overlay = null;
+    }
     if (selection) { selection.remove(); selection = null; }
     if (hint) { hint.remove(); hint = null; }
     if (highlightEl) { highlightEl.remove(); highlightEl = null; }
     if (tooltipEl) { tooltipEl.remove(); tooltipEl = null; }
     document.removeEventListener("mousemove", onMouseMove);
     document.removeEventListener("mouseup", onMouseUp);
-    document.removeEventListener("mousemove", onComponentMouseMove, true);
-    document.removeEventListener("wheel", onComponentWheel, true);
-    document.removeEventListener("click", onComponentClick, true);
-    document.removeEventListener("keydown", onKeyDown);
+    document.removeEventListener("keydown", onKeyDown, true);
+    document.removeEventListener("keyup", onKeyGuard, true);
+    document.removeEventListener("keypress", onKeyGuard, true);
+    document.removeEventListener("focusin", onFocusIn, true);
     window.removeEventListener("scroll", onPageScroll, true);
     document.body.classList.remove("webcap-active", "webcap-component-mode");
     isDragging = false;
@@ -502,7 +604,8 @@
         window.scrollTo(savedScrollX, savedScrollY);
         captureTarget = null;
       }
-      flash();
+      flash().then(() => sendResponse({ ok: true }));
+      return true;
     }
   });
 })();
