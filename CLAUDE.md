@@ -71,7 +71,7 @@ This is a Manifest V3 Chrome extension with no build step, no frameworks, no dep
 ## Publishing
 
 - Chrome Web Store developer account under ayakutt (non-trader, individual).
-- To create a release zip: `zip -r webcap.zip manifest.json background.js content.js content.css editor.html editor.js editor.css icons/`
+- To create a release zip: `zip -r webcap.zip . -x '.git/*' '.github/*' 'screenshots/*' 'README.md' 'CLAUDE.md' 'webcap.zip' '.*'`
 - First review takes 2-3 days. Subsequent updates are usually faster.
 - Privacy policy hosted on Google Docs, linked from the store listing.
 

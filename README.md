@@ -21,7 +21,7 @@ A Chrome extension for capturing screenshots of web page regions or individual c
 
 ### Chrome Web Store
 
-Coming soon.
+[Install Webcap from the Chrome Web Store](https://chromewebstore.google.com/detail/webcap/hiofbhgfmcaiohmbdlajagfbhkikpcim)
 
 ### Manual (Developer Mode)
 
