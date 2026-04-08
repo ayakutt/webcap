@@ -90,7 +90,8 @@ This is a Manifest V3 web extension with no build step, no frameworks, no depend
 - macOS-only. iOS Safari extensions are intentionally not supported — Webcap's region/component capture UX doesn't translate to mobile.
 - For local testing without signing: `xcodebuild -scheme Webcap build CODE_SIGNING_ALLOWED=NO`.
 - Safari does not honor `commands.suggested_key` from `manifest.json` — users bind shortcuts manually in System Settings.
-- The Xcode project was generated with: `xcrun safari-web-extension-converter ./extension --project-location ./safari --app-name "Webcap" --bundle-identifier "com.ayakutt.webcap" --swift --macos-only --no-open --no-prompt`. **Heads up:** the converter title-cases the host app's bundle ID to `com.ayakutt.Webcap` while leaving the extension's at `com.ayakutt.webcap.Extension`, which fails `ValidateEmbeddedBinary` because the extension's prefix no longer matches the parent. After regenerating, fix both `PRODUCT_BUNDLE_IDENTIFIER = com.ayakutt.Webcap;` lines in `safari/Webcap/Webcap.xcodeproj/project.pbxproj` to lowercase `com.ayakutt.webcap`.
+- Bundle identifiers: host app `com.alperenyakut.webcap`, extension `com.alperenyakut.webcap.Extension`. The `com.alperenyakut.*` prefix matches the user's other App Store apps.
+- The Xcode project was generated with: `xcrun safari-web-extension-converter ./extension --project-location ./safari --app-name "Webcap" --bundle-identifier "com.alperenyakut.webcap" --swift --macos-only --no-open --no-prompt`. **Heads up:** the converter title-cases the host app's bundle ID to `com.alperenyakut.Webcap` while leaving the extension's at `com.alperenyakut.webcap.Extension`, which fails `ValidateEmbeddedBinary` because the extension's prefix no longer matches the parent. After regenerating, fix both `PRODUCT_BUNDLE_IDENTIFIER = com.alperenyakut.Webcap;` lines in `safari/Webcap/Webcap.xcodeproj/project.pbxproj` to lowercase `com.alperenyakut.webcap`.
 
 ## README
 
