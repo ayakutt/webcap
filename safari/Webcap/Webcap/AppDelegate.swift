@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  macOS (App)
+//  Webcap
 //
 //  Created by Alperen Yakut on 08/04/2026.
 //

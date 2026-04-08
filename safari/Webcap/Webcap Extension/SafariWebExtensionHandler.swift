@@ -1,6 +1,6 @@
 //
 //  SafariWebExtensionHandler.swift
-//  Shared (Extension)
+//  Webcap Extension
 //
 //  Created by Alperen Yakut on 08/04/2026.
 //

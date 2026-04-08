@@ -30,13 +30,13 @@ A browser extension (Chrome and Safari) for capturing screenshots of web page re
 3. Enable "Developer mode" (top right)
 4. Click "Load unpacked" and select the `extension/` directory inside this repo
 
-### Safari (macOS / iOS)
+### Safari (macOS)
 
 The same source files are wrapped as a Safari Web Extension via an Xcode project under `safari/`.
 
 1. Clone this repository
 2. Open `safari/Webcap/Webcap.xcodeproj` in Xcode
-3. Select the `Webcap (macOS)` scheme and run (`⌘R`). For iOS pick the iOS scheme and a simulator or device.
+3. Select the `Webcap` scheme and run (`⌘R`)
 4. In Safari, open **Settings → Advanced** and enable **Show features for web developers**
 5. Open **Settings → Developer** and enable **Allow unsigned extensions** (required while running an unsigned local build; this resets when Safari quits)
 6. Open **Settings → Extensions** and enable **Webcap**
