@@ -1,0 +1,1005 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0578C9A62F865DD4001DFDAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0578C9A52F865DD4001DFDAA /* AppDelegate.swift */; };
+		0578C9A82F865DD4001DFDAA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0578C9A72F865DD4001DFDAA /* SceneDelegate.swift */; };
+		0578C9AB2F865DD4001DFDAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9A92F865DD4001DFDAA /* LaunchScreen.storyboard */; };
+		0578C9AE2F865DD4001DFDAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9AC2F865DD4001DFDAA /* Main.storyboard */; };
+		0578C9B72F865DD4001DFDAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0578C9B62F865DD4001DFDAA /* AppDelegate.swift */; };
+		0578C9BA2F865DD4001DFDAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9B82F865DD4001DFDAA /* Main.storyboard */; };
+		0578C9C12F865DD4001DFDAA /* Webcap Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0578C9C02F865DD4001DFDAA /* Webcap Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0578C9CB2F865DD4001DFDAA /* Webcap Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0578C9CA2F865DD4001DFDAA /* Webcap Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0578C9D02F865DD4001DFDAA /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9952F865DD3001DFDAA /* Main.html */; };
+		0578C9D12F865DD4001DFDAA /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9952F865DD3001DFDAA /* Main.html */; };
+		0578C9D22F865DD4001DFDAA /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9972F865DD3001DFDAA /* Icon.png */; };
+		0578C9D32F865DD4001DFDAA /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9972F865DD3001DFDAA /* Icon.png */; };
+		0578C9D42F865DD4001DFDAA /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9982F865DD3001DFDAA /* Style.css */; };
+		0578C9D52F865DD4001DFDAA /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9982F865DD3001DFDAA /* Style.css */; };
+		0578C9D62F865DD4001DFDAA /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9992F865DD3001DFDAA /* Script.js */; };
+		0578C9D72F865DD4001DFDAA /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9992F865DD3001DFDAA /* Script.js */; };
+		0578C9D82F865DD4001DFDAA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0578C99A2F865DD3001DFDAA /* ViewController.swift */; };
+		0578C9D92F865DD4001DFDAA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0578C99A2F865DD3001DFDAA /* ViewController.swift */; };
+		0578C9DA2F865DD4001DFDAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0578C99B2F865DD4001DFDAA /* Assets.xcassets */; };
+		0578C9DB2F865DD4001DFDAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0578C99B2F865DD4001DFDAA /* Assets.xcassets */; };
+		0578C9DC2F865DD4001DFDAA /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0578C99D2F865DD4001DFDAA /* SafariWebExtensionHandler.swift */; };
+		0578C9DD2F865DD4001DFDAA /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0578C99D2F865DD4001DFDAA /* SafariWebExtensionHandler.swift */; };
+		0578C9F72F865DD4001DFDAA /* content.css in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9EF2F865DD4001DFDAA /* content.css */; };
+		0578C9F82F865DD4001DFDAA /* editor.css in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9F02F865DD4001DFDAA /* editor.css */; };
+		0578C9F92F865DD4001DFDAA /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9F12F865DD4001DFDAA /* background.js */; };
+		0578C9FA2F865DD4001DFDAA /* editor.html in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9F22F865DD4001DFDAA /* editor.html */; };
+		0578C9FB2F865DD4001DFDAA /* editor.js in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9F32F865DD4001DFDAA /* editor.js */; };
+		0578C9FC2F865DD4001DFDAA /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9F42F865DD4001DFDAA /* icons */; };
+		0578C9FD2F865DD4001DFDAA /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9F52F865DD4001DFDAA /* manifest.json */; };
+		0578C9FE2F865DD4001DFDAA /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9F62F865DD4001DFDAA /* content.js */; };
+		0578C9FF2F865DD4001DFDAA /* content.css in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9EF2F865DD4001DFDAA /* content.css */; };
+		0578CA002F865DD5001DFDAA /* editor.css in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9F02F865DD4001DFDAA /* editor.css */; };
+		0578CA012F865DD5001DFDAA /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9F12F865DD4001DFDAA /* background.js */; };
+		0578CA022F865DD5001DFDAA /* editor.html in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9F22F865DD4001DFDAA /* editor.html */; };
+		0578CA032F865DD5001DFDAA /* editor.js in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9F32F865DD4001DFDAA /* editor.js */; };
+		0578CA042F865DD5001DFDAA /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9F42F865DD4001DFDAA /* icons */; };
+		0578CA052F865DD5001DFDAA /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9F52F865DD4001DFDAA /* manifest.json */; };
+		0578CA062F865DD5001DFDAA /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 0578C9F62F865DD4001DFDAA /* content.js */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0578C9C22F865DD4001DFDAA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0578C98F2F865DD3001DFDAA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0578C9BF2F865DD4001DFDAA;
+			remoteInfo = "Webcap Extension (iOS)";
+		};
+		0578C9CC2F865DD4001DFDAA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0578C98F2F865DD3001DFDAA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0578C9C92F865DD4001DFDAA;
+			remoteInfo = "Webcap Extension (macOS)";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0578C9E32F865DD4001DFDAA /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				0578C9C12F865DD4001DFDAA /* Webcap Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0578C9EA2F865DD4001DFDAA /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				0578C9CB2F865DD4001DFDAA /* Webcap Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0578C9962F865DD3001DFDAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
+		0578C9972F865DD3001DFDAA /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		0578C9982F865DD3001DFDAA /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		0578C9992F865DD3001DFDAA /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		0578C99A2F865DD3001DFDAA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0578C99B2F865DD4001DFDAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0578C99D2F865DD4001DFDAA /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		0578C9A22F865DD4001DFDAA /* Webcap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Webcap.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0578C9A52F865DD4001DFDAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0578C9A72F865DD4001DFDAA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		0578C9AA2F865DD4001DFDAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0578C9AD2F865DD4001DFDAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0578C9AF2F865DD4001DFDAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0578C9B42F865DD4001DFDAA /* Webcap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Webcap.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0578C9B62F865DD4001DFDAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0578C9B92F865DD4001DFDAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0578C9BB2F865DD4001DFDAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0578C9C02F865DD4001DFDAA /* Webcap Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Webcap Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0578C9C52F865DD4001DFDAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0578C9CA2F865DD4001DFDAA /* Webcap Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Webcap Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0578C9CF2F865DD4001DFDAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0578C9EF2F865DD4001DFDAA /* content.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = content.css; path = ../../../extension/content.css; sourceTree = "<group>"; };
+		0578C9F02F865DD4001DFDAA /* editor.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = editor.css; path = ../../../extension/editor.css; sourceTree = "<group>"; };
+		0578C9F12F865DD4001DFDAA /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../../extension/background.js; sourceTree = "<group>"; };
+		0578C9F22F865DD4001DFDAA /* editor.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = editor.html; path = ../../../extension/editor.html; sourceTree = "<group>"; };
+		0578C9F32F865DD4001DFDAA /* editor.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = editor.js; path = ../../../extension/editor.js; sourceTree = "<group>"; };
+		0578C9F42F865DD4001DFDAA /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = ../../../extension/icons; sourceTree = "<group>"; };
+		0578C9F52F865DD4001DFDAA /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../../extension/manifest.json; sourceTree = "<group>"; };
+		0578C9F62F865DD4001DFDAA /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = content.js; path = ../../../extension/content.js; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0578C99F2F865DD4001DFDAA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0578C9B12F865DD4001DFDAA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0578C9BD2F865DD4001DFDAA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0578C9C72F865DD4001DFDAA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0578C98E2F865DD3001DFDAA = {
+			isa = PBXGroup;
+			children = (
+				0578C9932F865DD3001DFDAA /* Shared (App) */,
+				0578C99C2F865DD4001DFDAA /* Shared (Extension) */,
+				0578C9A42F865DD4001DFDAA /* iOS (App) */,
+				0578C9B52F865DD4001DFDAA /* macOS (App) */,
+				0578C9C42F865DD4001DFDAA /* iOS (Extension) */,
+				0578C9CE2F865DD4001DFDAA /* macOS (Extension) */,
+				0578C9A32F865DD4001DFDAA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0578C9932F865DD3001DFDAA /* Shared (App) */ = {
+			isa = PBXGroup;
+			children = (
+				0578C99A2F865DD3001DFDAA /* ViewController.swift */,
+				0578C99B2F865DD4001DFDAA /* Assets.xcassets */,
+				0578C9942F865DD3001DFDAA /* Resources */,
+			);
+			path = "Shared (App)";
+			sourceTree = "<group>";
+		};
+		0578C9942F865DD3001DFDAA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0578C9952F865DD3001DFDAA /* Main.html */,
+				0578C9972F865DD3001DFDAA /* Icon.png */,
+				0578C9982F865DD3001DFDAA /* Style.css */,
+				0578C9992F865DD3001DFDAA /* Script.js */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0578C99C2F865DD4001DFDAA /* Shared (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				0578C9EE2F865DD4001DFDAA /* Resources */,
+				0578C99D2F865DD4001DFDAA /* SafariWebExtensionHandler.swift */,
+			);
+			path = "Shared (Extension)";
+			sourceTree = "<group>";
+		};
+		0578C9A32F865DD4001DFDAA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0578C9A22F865DD4001DFDAA /* Webcap.app */,
+				0578C9B42F865DD4001DFDAA /* Webcap.app */,
+				0578C9C02F865DD4001DFDAA /* Webcap Extension.appex */,
+				0578C9CA2F865DD4001DFDAA /* Webcap Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0578C9A42F865DD4001DFDAA /* iOS (App) */ = {
+			isa = PBXGroup;
+			children = (
+				0578C9A52F865DD4001DFDAA /* AppDelegate.swift */,
+				0578C9A72F865DD4001DFDAA /* SceneDelegate.swift */,
+				0578C9A92F865DD4001DFDAA /* LaunchScreen.storyboard */,
+				0578C9AC2F865DD4001DFDAA /* Main.storyboard */,
+				0578C9AF2F865DD4001DFDAA /* Info.plist */,
+			);
+			path = "iOS (App)";
+			sourceTree = "<group>";
+		};
+		0578C9B52F865DD4001DFDAA /* macOS (App) */ = {
+			isa = PBXGroup;
+			children = (
+				0578C9B62F865DD4001DFDAA /* AppDelegate.swift */,
+				0578C9B82F865DD4001DFDAA /* Main.storyboard */,
+				0578C9BB2F865DD4001DFDAA /* Info.plist */,
+			);
+			path = "macOS (App)";
+			sourceTree = "<group>";
+		};
+		0578C9C42F865DD4001DFDAA /* iOS (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				0578C9C52F865DD4001DFDAA /* Info.plist */,
+			);
+			path = "iOS (Extension)";
+			sourceTree = "<group>";
+		};
+		0578C9CE2F865DD4001DFDAA /* macOS (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				0578C9CF2F865DD4001DFDAA /* Info.plist */,
+			);
+			path = "macOS (Extension)";
+			sourceTree = "<group>";
+		};
+		0578C9EE2F865DD4001DFDAA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0578C9EF2F865DD4001DFDAA /* content.css */,
+				0578C9F02F865DD4001DFDAA /* editor.css */,
+				0578C9F12F865DD4001DFDAA /* background.js */,
+				0578C9F22F865DD4001DFDAA /* editor.html */,
+				0578C9F32F865DD4001DFDAA /* editor.js */,
+				0578C9F42F865DD4001DFDAA /* icons */,
+				0578C9F52F865DD4001DFDAA /* manifest.json */,
+				0578C9F62F865DD4001DFDAA /* content.js */,
+			);
+			name = Resources;
+			path = "Shared (Extension)";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0578C9A12F865DD4001DFDAA /* Webcap (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0578C9E42F865DD4001DFDAA /* Build configuration list for PBXNativeTarget "Webcap (iOS)" */;
+			buildPhases = (
+				0578C99E2F865DD4001DFDAA /* Sources */,
+				0578C99F2F865DD4001DFDAA /* Frameworks */,
+				0578C9A02F865DD4001DFDAA /* Resources */,
+				0578C9E32F865DD4001DFDAA /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0578C9C32F865DD4001DFDAA /* PBXTargetDependency */,
+			);
+			name = "Webcap (iOS)";
+			packageProductDependencies = (
+			);
+			productName = "Webcap (iOS)";
+			productReference = 0578C9A22F865DD4001DFDAA /* Webcap.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0578C9B32F865DD4001DFDAA /* Webcap (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0578C9EB2F865DD4001DFDAA /* Build configuration list for PBXNativeTarget "Webcap (macOS)" */;
+			buildPhases = (
+				0578C9B02F865DD4001DFDAA /* Sources */,
+				0578C9B12F865DD4001DFDAA /* Frameworks */,
+				0578C9B22F865DD4001DFDAA /* Resources */,
+				0578C9EA2F865DD4001DFDAA /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0578C9CD2F865DD4001DFDAA /* PBXTargetDependency */,
+			);
+			name = "Webcap (macOS)";
+			packageProductDependencies = (
+			);
+			productName = "Webcap (macOS)";
+			productReference = 0578C9B42F865DD4001DFDAA /* Webcap.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0578C9BF2F865DD4001DFDAA /* Webcap Extension (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0578C9E02F865DD4001DFDAA /* Build configuration list for PBXNativeTarget "Webcap Extension (iOS)" */;
+			buildPhases = (
+				0578C9BC2F865DD4001DFDAA /* Sources */,
+				0578C9BD2F865DD4001DFDAA /* Frameworks */,
+				0578C9BE2F865DD4001DFDAA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Webcap Extension (iOS)";
+			packageProductDependencies = (
+			);
+			productName = "Webcap Extension (iOS)";
+			productReference = 0578C9C02F865DD4001DFDAA /* Webcap Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		0578C9C92F865DD4001DFDAA /* Webcap Extension (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0578C9E72F865DD4001DFDAA /* Build configuration list for PBXNativeTarget "Webcap Extension (macOS)" */;
+			buildPhases = (
+				0578C9C62F865DD4001DFDAA /* Sources */,
+				0578C9C72F865DD4001DFDAA /* Frameworks */,
+				0578C9C82F865DD4001DFDAA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Webcap Extension (macOS)";
+			packageProductDependencies = (
+			);
+			productName = "Webcap Extension (macOS)";
+			productReference = 0578C9CA2F865DD4001DFDAA /* Webcap Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0578C98F2F865DD3001DFDAA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2640;
+				LastUpgradeCheck = 2640;
+				TargetAttributes = {
+					0578C9A12F865DD4001DFDAA = {
+						CreatedOnToolsVersion = 26.4;
+					};
+					0578C9B32F865DD4001DFDAA = {
+						CreatedOnToolsVersion = 26.4;
+					};
+					0578C9BF2F865DD4001DFDAA = {
+						CreatedOnToolsVersion = 26.4;
+					};
+					0578C9C92F865DD4001DFDAA = {
+						CreatedOnToolsVersion = 26.4;
+					};
+				};
+			};
+			buildConfigurationList = 0578C9922F865DD3001DFDAA /* Build configuration list for PBXProject "Webcap" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0578C98E2F865DD3001DFDAA;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 0578C9A32F865DD4001DFDAA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0578C9A12F865DD4001DFDAA /* Webcap (iOS) */,
+				0578C9B32F865DD4001DFDAA /* Webcap (macOS) */,
+				0578C9BF2F865DD4001DFDAA /* Webcap Extension (iOS) */,
+				0578C9C92F865DD4001DFDAA /* Webcap Extension (macOS) */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0578C9A02F865DD4001DFDAA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0578C9D22F865DD4001DFDAA /* Icon.png in Resources */,
+				0578C9AB2F865DD4001DFDAA /* LaunchScreen.storyboard in Resources */,
+				0578C9D02F865DD4001DFDAA /* Main.html in Resources */,
+				0578C9D62F865DD4001DFDAA /* Script.js in Resources */,
+				0578C9DA2F865DD4001DFDAA /* Assets.xcassets in Resources */,
+				0578C9AE2F865DD4001DFDAA /* Main.storyboard in Resources */,
+				0578C9D42F865DD4001DFDAA /* Style.css in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0578C9B22F865DD4001DFDAA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0578C9D32F865DD4001DFDAA /* Icon.png in Resources */,
+				0578C9D52F865DD4001DFDAA /* Style.css in Resources */,
+				0578C9BA2F865DD4001DFDAA /* Main.storyboard in Resources */,
+				0578C9D72F865DD4001DFDAA /* Script.js in Resources */,
+				0578C9DB2F865DD4001DFDAA /* Assets.xcassets in Resources */,
+				0578C9D12F865DD4001DFDAA /* Main.html in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0578C9BE2F865DD4001DFDAA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0578CA062F865DD5001DFDAA /* content.js in Resources */,
+				0578CA002F865DD5001DFDAA /* editor.css in Resources */,
+				0578CA052F865DD5001DFDAA /* manifest.json in Resources */,
+				0578CA022F865DD5001DFDAA /* editor.html in Resources */,
+				0578CA012F865DD5001DFDAA /* background.js in Resources */,
+				0578CA042F865DD5001DFDAA /* icons in Resources */,
+				0578C9FF2F865DD4001DFDAA /* content.css in Resources */,
+				0578CA032F865DD5001DFDAA /* editor.js in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0578C9C82F865DD4001DFDAA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0578C9FE2F865DD4001DFDAA /* content.js in Resources */,
+				0578C9F82F865DD4001DFDAA /* editor.css in Resources */,
+				0578C9FD2F865DD4001DFDAA /* manifest.json in Resources */,
+				0578C9FA2F865DD4001DFDAA /* editor.html in Resources */,
+				0578C9F92F865DD4001DFDAA /* background.js in Resources */,
+				0578C9FC2F865DD4001DFDAA /* icons in Resources */,
+				0578C9F72F865DD4001DFDAA /* content.css in Resources */,
+				0578C9FB2F865DD4001DFDAA /* editor.js in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0578C99E2F865DD4001DFDAA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0578C9D82F865DD4001DFDAA /* ViewController.swift in Sources */,
+				0578C9A62F865DD4001DFDAA /* AppDelegate.swift in Sources */,
+				0578C9A82F865DD4001DFDAA /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0578C9B02F865DD4001DFDAA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0578C9D92F865DD4001DFDAA /* ViewController.swift in Sources */,
+				0578C9B72F865DD4001DFDAA /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0578C9BC2F865DD4001DFDAA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0578C9DC2F865DD4001DFDAA /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0578C9C62F865DD4001DFDAA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0578C9DD2F865DD4001DFDAA /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0578C9C32F865DD4001DFDAA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0578C9BF2F865DD4001DFDAA /* Webcap Extension (iOS) */;
+			targetProxy = 0578C9C22F865DD4001DFDAA /* PBXContainerItemProxy */;
+		};
+		0578C9CD2F865DD4001DFDAA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0578C9C92F865DD4001DFDAA /* Webcap Extension (macOS) */;
+			targetProxy = 0578C9CC2F865DD4001DFDAA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		0578C9952F865DD3001DFDAA /* Main.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0578C9962F865DD3001DFDAA /* Base */,
+			);
+			name = Main.html;
+			sourceTree = "<group>";
+		};
+		0578C9A92F865DD4001DFDAA /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0578C9AA2F865DD4001DFDAA /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		0578C9AC2F865DD4001DFDAA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0578C9AD2F865DD4001DFDAA /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0578C9B82F865DD4001DFDAA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0578C9B92F865DD4001DFDAA /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0578C9DE2F865DD4001DFDAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		0578C9DF2F865DD4001DFDAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		0578C9E12F865DD4001DFDAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Webcap Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ayakutt.webcap.Extension;
+				PRODUCT_NAME = "Webcap Extension";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0578C9E22F865DD4001DFDAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Webcap Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ayakutt.webcap.Extension;
+				PRODUCT_NAME = "Webcap Extension";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0578C9E52F865DD4001DFDAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Webcap;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ayakutt.webcap;
+				PRODUCT_NAME = Webcap;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0578C9E62F865DD4001DFDAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Webcap;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ayakutt.webcap;
+				PRODUCT_NAME = Webcap;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0578C9E82F865DD4001DFDAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Webcap Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ayakutt.webcap.Extension;
+				PRODUCT_NAME = "Webcap Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		0578C9E92F865DD4001DFDAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Webcap Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ayakutt.webcap.Extension;
+				PRODUCT_NAME = "Webcap Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		0578C9EC2F865DD4001DFDAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Webcap;
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ayakutt.webcap;
+				PRODUCT_NAME = Webcap;
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		0578C9ED2F865DD4001DFDAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Webcap;
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ayakutt.webcap;
+				PRODUCT_NAME = Webcap;
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0578C9922F865DD3001DFDAA /* Build configuration list for PBXProject "Webcap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0578C9DE2F865DD4001DFDAA /* Debug */,
+				0578C9DF2F865DD4001DFDAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0578C9E02F865DD4001DFDAA /* Build configuration list for PBXNativeTarget "Webcap Extension (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0578C9E12F865DD4001DFDAA /* Debug */,
+				0578C9E22F865DD4001DFDAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0578C9E42F865DD4001DFDAA /* Build configuration list for PBXNativeTarget "Webcap (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0578C9E52F865DD4001DFDAA /* Debug */,
+				0578C9E62F865DD4001DFDAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0578C9E72F865DD4001DFDAA /* Build configuration list for PBXNativeTarget "Webcap Extension (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0578C9E82F865DD4001DFDAA /* Debug */,
+				0578C9E92F865DD4001DFDAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0578C9EB2F865DD4001DFDAA /* Build configuration list for PBXNativeTarget "Webcap (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0578C9EC2F865DD4001DFDAA /* Debug */,
+				0578C9ED2F865DD4001DFDAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0578C98F2F865DD3001DFDAA /* Project object */;
+}

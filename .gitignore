@@ -1,3 +1,9 @@
 .superpowers/
 .DS_Store
 webcap.zip
+
+# Xcode (Safari project)
+xcuserdata/
+*.xcuserstate
+build/
+DerivedData/

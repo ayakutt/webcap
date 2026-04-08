@@ -1,6 +1,6 @@
 # Webcap
 
-A Chrome extension for capturing screenshots of web page regions or individual components, with a built-in editor for adding backgrounds before saving.
+A browser extension (Chrome and Safari) for capturing screenshots of web page regions or individual components, with a built-in editor for adding backgrounds before saving.
 
 ## Features
 
@@ -23,12 +23,26 @@ A Chrome extension for capturing screenshots of web page regions or individual c
 
 [Install Webcap from the Chrome Web Store](https://chromewebstore.google.com/detail/webcap/hiofbhgfmcaiohmbdlajagfbhkikpcim)
 
-### Manual (Developer Mode)
+### Manual (Chrome Developer Mode)
 
 1. Clone this repository
 2. Open `chrome://extensions` in Chrome
 3. Enable "Developer mode" (top right)
-4. Click "Load unpacked" and select this directory
+4. Click "Load unpacked" and select the `extension/` directory inside this repo
+
+### Safari (macOS / iOS)
+
+The same source files are wrapped as a Safari Web Extension via an Xcode project under `safari/`.
+
+1. Clone this repository
+2. Open `safari/Webcap/Webcap.xcodeproj` in Xcode
+3. Select the `Webcap (macOS)` scheme and run (`⌘R`). For iOS pick the iOS scheme and a simulator or device.
+4. In Safari, open **Settings → Advanced** and enable **Show features for web developers**
+5. Open **Settings → Developer** and enable **Allow unsigned extensions** (required while running an unsigned local build; this resets when Safari quits)
+6. Open **Settings → Extensions** and enable **Webcap**
+7. Bind keyboard shortcuts under **System Settings → Keyboard → Keyboard Shortcuts → App Shortcuts** if desired (Safari doesn't honor `suggested_key` from `manifest.json`)
+
+The Xcode project references the JS/CSS/HTML files in `extension/` directly, so editing them rebuilds both the Chrome and Safari versions from the same source.
 
 ## Keyboard Shortcuts
 
