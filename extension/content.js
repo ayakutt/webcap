@@ -109,14 +109,19 @@
     cleanup();
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
+        const dpr = window.devicePixelRatio;
         const vv = window.visualViewport;
         const vvOffX = vv ? vv.offsetLeft : 0;
         const vvOffY = vv ? vv.offsetTop : 0;
         chrome.runtime.sendMessage({
           action: "capture-rect",
           mode: "rectangle",
-          rect: { x: rect.x - vvOffX, y: rect.y - vvOffY, width: rect.width, height: rect.height },
-          viewportWidth: vv ? vv.width : window.innerWidth,
+          rect: {
+            x: Math.round((rect.x - vvOffX) * dpr),
+            y: Math.round((rect.y - vvOffY) * dpr),
+            width: Math.round(rect.width * dpr),
+            height: Math.round(rect.height * dpr),
+          },
         });
       });
     });
@@ -334,29 +339,35 @@
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           const newRect = el.getBoundingClientRect();
+          const dpr = window.devicePixelRatio;
           const vvNow = window.visualViewport;
           const vvOffX = vvNow ? vvNow.offsetLeft : 0;
           const vvOffY = vvNow ? vvNow.offsetTop : 0;
-          const vvW = vvNow ? vvNow.width : window.innerWidth;
           document.documentElement.style.scrollBehavior = prevBehavior;
           chrome.runtime.sendMessage({
             action: "capture-rect",
             mode: "component",
-            rect: { x: newRect.x - vvOffX, y: newRect.y - vvOffY, width: newRect.width, height: newRect.height },
-            viewportWidth: vvW,
-            borderRadius: borderRadius,
+            rect: {
+              x: Math.round((newRect.x - vvOffX) * dpr),
+              y: Math.round((newRect.y - vvOffY) * dpr),
+              width: Math.round(newRect.width * dpr),
+              height: Math.round(newRect.height * dpr),
+            },
+            borderRadius: Math.round(borderRadius * dpr),
           });
         });
       });
     } else {
       // Element larger than viewport — multi-tile capture via background
       document.documentElement.style.scrollBehavior = prevBehavior;
+      const dpr = window.devicePixelRatio;
       chrome.runtime.sendMessage({
         action: "capture-full-component",
         docRect: { x: docX, y: docY, width: elWidth, height: elHeight },
         viewportWidth: vpWidth,
         viewportHeight: vpHeight,
-        borderRadius: borderRadius,
+        dpr: dpr,
+        borderRadius: Math.round(borderRadius * dpr),
       });
     }
   }
